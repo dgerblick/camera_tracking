@@ -12,13 +12,13 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   cv_bridge
   image_transport
+  dynamic_reconfigure
   sensor_msgs
   std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
-
+find_package(Boost REQUIRED COMPONENTS system)
 find_package(OpenCV 3 REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -92,10 +92,9 @@ generate_messages(
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
-#   cfg/DynReconf2.cfg
-# )
+generate_dynamic_reconfigure_options(
+  cfg/BlobDetect.cfg
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -193,7 +192,7 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 install(FILES
-  launch/video_stream.launch
+  launch/blob_detect.launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 

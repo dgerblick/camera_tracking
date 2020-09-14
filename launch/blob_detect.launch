@@ -1,0 +1,31 @@
+<launch>
+   <arg name="camera_name" default="my_camera" />
+   <arg name="camera_provider" default="0" />
+   <arg name="camera_fps" default="30" />
+   <arg name="camera_width" default="1920" />
+   <arg name="camera_height" default="1080" />
+   <arg name="blob_out" default="blobs" />
+   <arg name="blob_overlay" default="" />
+   <arg name="name" default="blob_detect" />
+   <arg name="image_format" default="bgr8" /> 
+
+   <include file="$(find video_stream_opencv)/launch/camera.launch">
+      <arg name="camera_name" value="$(arg camera_name)" />
+      <arg name="video_stream_provider" value="$(arg camera_provider)" />
+      <arg name="set_camera_fps" value="$(arg camera_fps)"/>
+      <arg name="buffer_queue_size" value="100" />
+      <arg name="fps" value="$(arg camera_fps)" />
+      <arg name="frame_id" value="$(arg camera_name)" />
+      <arg name="camera_info_url" value="" />
+      <arg name="flip_horizontal" value="false" />
+      <arg name="flip_vertical" value="false" />
+      <arg name="visualize" value="false" />
+      <arg name="width" value="$(arg camera_width)" />
+      <arg name="height" value="$(arg camera_height)" />
+   </include>
+   <node name="$(arg name)" type="blob_detect" pkg="camera_tracking" required="true" />
+   <param name="image_in" type="string" value="/$(arg camera_name)/image_raw" />
+   <param name="blob_out" type="string" value="$(arg blob_out)" />
+   <param name="overlay_out" type="string" value="$(arg blob_overlay)" />
+   <param name="image_format" type="string" value="$(arg image_format)" />
+</launch>

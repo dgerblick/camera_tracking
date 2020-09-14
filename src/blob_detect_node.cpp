@@ -4,7 +4,7 @@
 
 int main(int argc, char** argv) {
   ros::init(argc, argv, "blob_detect");
-  ros::NodeHandle nh("blob_detect");
+  ros::NodeHandle nh;
 
   camera_tracking::BlobDetect blobDetect(nh);
 
